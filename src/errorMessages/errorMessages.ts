@@ -3,4 +3,5 @@ export const errorMessages = {
   USER_EXIST_ERROR: 'User exist',
   USER_NOT_FOUND: 'User is not found',
   USER_INCORRECT_PASSWORD: 'Password is incorrect',
+  USER_NOT_EMAIL: 'Is not email',
 };

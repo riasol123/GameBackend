@@ -1,16 +1,17 @@
-import { Body, Controller, Get, Param, Patch, Post } from '@nestjs/common';
+import { Body, Controller, Get, Param, Patch, Post, Query } from '@nestjs/common';
 
 import { AuthService } from './auth.service';
-import { RegistrationDto } from './authDTO/registrationDto';
-import { LoginDto } from './authDTO/loginDto';
-import { whoAmIDto } from './authDTO/whoAmIDto';
-import { ProgressDto } from './authDTO/progressDto';
+import { LoginDto } from './authDTO/login.dto';
+import { RegistrationDto } from './authDTO/registration.dto';
+import { ProgressDto } from './authDTO/progress.dto';
+import { WhoAmIDto } from './authDTO/whoAmI.dto';
 
 @Controller('auth')
 export class AuthController {
   constructor(private readonly authService: AuthService) {}
   @Post('/registration')
   register(@Body() registrationData: RegistrationDto) {
+    console.log(1)
     return this.authService.registration(registrationData);
   }
 
@@ -19,13 +20,13 @@ export class AuthController {
     return this.authService.login(loginData);
   }
 
-  @Get('/whoami')
-  whoami(@Body() data: whoAmIDto) {
-    return this.authService.getUserInfo(data);
+  @Get('/whoami/:id')
+  whoami(@Param() data: WhoAmIDto) {
+    return this.authService.getUserProgress(data);
   }
 
-  @Patch('/:id')
-  score(@Param('id') id: number, @Body() data: ProgressDto) {
-    return this.authService.score(data, id);
+  @Post('/score/:id')
+  score(@Param('id') id: string, @Body() data: ProgressDto) {
+    return this.authService.score(data.progress, id);
   }
 }

@@ -5,12 +5,15 @@ module.exports = {
         allowNull: false,
         autoIncrement: true,
         primaryKey: true,
+        unique: true,
         type: Sequelize.INTEGER,
       },
       email: {
         allowNull: false,
         validate: {
+          isEmail: true,
           notEmpty: true,
+          notNull: true,
         },
         unique: true,
         type: Sequelize.STRING,
@@ -19,13 +22,13 @@ module.exports = {
         allowNull: false,
         validate: {
           notEmpty: true,
+          notNull: true,
         },
         type: Sequelize.STRING,
       },
       progress: {
         allowNull: true,
         type: Sequelize.INTEGER,
-        default: 0,
       },
       createdAt: {
         allowNull: false,

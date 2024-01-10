@@ -1,15 +1,24 @@
-import { BeforeCreate, Column, Model, Table } from 'sequelize-typescript';
+import { AllowNull, BeforeCreate, Column, Model, Table } from 'sequelize-typescript';
 import * as bcrypt from 'bcrypt';
+import { IsNotEmpty, IsEmail } from 'class-validator';
 
 @Table
 export class User extends Model<User> {
-  @Column({ allowNull: false, unique: true })
+  @IsNotEmpty()
+  @IsEmail()
+  @AllowNull(false)
+  @Column({unique: true })
   email: string;
 
-  @Column({ allowNull: false })
+  @IsNotEmpty()
+  @AllowNull(false)
+  @Column
   password: string;
 
-  @Column({ allowNull: true })
+  @Column({ 
+    allowNull: true,
+    defaultValue: 0,
+  })
   progress: number;
 
   @Column({ allowNull: false })
